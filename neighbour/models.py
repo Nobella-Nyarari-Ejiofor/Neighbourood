@@ -35,12 +35,12 @@ class Profile(models.Model):
   """
   A model that contains user's info for the profile
   """
-  user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile', null=True)
-  bio = models.TextField(max_length=500 , blank= True , null=True)
+  user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile',  blank =True)
+  bio = models.TextField(max_length=500 , blank =True)
   photo=models.ImageField(upload_to="profile/" , blank=True)
-  profile_email=models.EmailField(max_length = 100, blank=True ,null= True)
+  profile_email=models.EmailField(max_length = 100, blank=True)
   location = models.CharField(max_length=30 , blank=True)
-  neighbourhood_name = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
+  neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE, blank =True, null=True)
   def __str__(self):
     return f'{self.user.username}'
 
