@@ -1,5 +1,32 @@
 {% extends 'neighbour/base.html' %}
+{% load bootstrap4 %}
 {% block content %}
-<h1>HEllo!!!!</h1>
-<p>{{message}}</p>
+
+<div class="container">
+  <div class="row">
+   
+
+    <div class="col-md-6">
+{% if user.profile.neighbourhood.neighbourhood_name %}
+      <div class="card">
+        <p>Welcome to your neighbourhood <strong>{{user.profile.neighbourhood.neighbourhood_name}}</strong> </p>
+      </div>
+  {% else %}
+      <h1>What's your neighbourhood?</h1>
+     <form  action="{% url 'index' %}" method="POST"  enctype="multipart/form-data">
+
+       {% csrf_token %}  
+       {% bootstrap_form form %}
+
+       <input type="submit">
+
+     </form>
+{% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+
 {% endblock %}

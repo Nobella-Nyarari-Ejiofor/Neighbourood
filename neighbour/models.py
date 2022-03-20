@@ -8,6 +8,11 @@ class Neighbourhood(models.Model):
   neighbourhood_name = models.CharField(max_length=30 , null=False)
   neighbourhood_location = models.CharField(max_length=30, null=False)
   occupants_count = models.IntegerField()
+  
+
+  def __str__(self):
+    return f'{self.neighbourhood_name}'
+
 
 
   def create_neighbourhood(self):
@@ -35,6 +40,7 @@ class Profile(models.Model):
   """
   A model that contains user's info for the profile
   """
+  name = models.CharField(max_length = 30 , null = False)
   user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile',  blank =True)
   bio = models.TextField(max_length=500 , blank =True)
   photo=models.ImageField(upload_to="profile/" , blank=True)
