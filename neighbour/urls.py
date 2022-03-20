@@ -4,8 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns=[
-  path('/home', views.index , name="index"),
+  path('home/', views.index , name="index"),
   path('', views.profile, name="profile"),
+  re_path(r'^search/', views.search_results, name='search_results')
 ]
 
 if settings.DEBUG:

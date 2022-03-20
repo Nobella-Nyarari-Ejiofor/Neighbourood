@@ -68,6 +68,9 @@ class Business(models.Model):
   neighbourhood= models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
   business_email = models.EmailField(max_length=100)
 
+  def __str__(self):
+    return f'{self.business_name}'
+
   def create_business(self):
     self.save()
 
@@ -80,8 +83,18 @@ class Business(models.Model):
   def update_business(self):
     """
     A function thta updates the business
-    """
+   """
+  @classmethod
+  def filter_by_neighbourhood(cls,id):
+    business_gotten = cls.objects.filter(neighbourhood = Neighbourhood.objects.filter(neighbour_id = id).first()).all()
+    return business_gotten
 
+  @classmethod
+  def search_by_business(cls,search_term):
+        business= cls.objects.filter(business_name__icontains=search_term)
+        return business
+
+  
 
 
 
