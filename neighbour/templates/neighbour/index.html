@@ -26,11 +26,55 @@
   </div>
 </div>
 
-{% if bisna %}
-{% for business in bisna %}
-<li>business.business_name</li>
+
+
+{% if myneighbours %}
+<div class="card">
+  <h2 class="text-center">Here are a list of your neighbors , feel free to reach out</h2>
+  {% for neighbour in myneighbours %}
+  <div class="card">
+    <div class="card-title">
+      {{neighbour.name}}
+      {{neighbour.bio}}
+      {{neighbour.profile_email}}
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+</div>
+
+
+{% if businesses %}
+{% for business in businesses %}
+<h1>Businesses in your neighbourhood</h1>
+{{business.business_name}}
 {% endfor %}
 {% endif %}
+
+<button><a href="{% url 'post'%}">Post in my neighbourhood</a></button>
+
+
+{% if posts %}
+{% for post in posts %}
+  {{post.title}}
+  {{post.content}}
+{% endfor %}
+{% endif %}
+<div class="col-xl-3 col-sm-6 mb-5">
+  <div class="bg-red rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-team/teacher-1.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+      <h5 class="mb-0">Tom Sunderland</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+      <ul class="social mb-0 list-inline mt-3">
+          <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+      </ul>
+  </div>
+
+
+<h1></h1>
+
+
 
 
 

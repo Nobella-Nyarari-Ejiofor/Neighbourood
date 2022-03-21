@@ -3,8 +3,8 @@ from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 import neighbour
-from neighbour.models import Profile , Business ,Neighbourhood
-from .forms import ProfileForm , NeighbourhoodForm
+from neighbour.models import Posts, Profile , Business ,Neighbourhood
+from .forms import PostForm, ProfileForm , NeighbourhoodForm
 from django.contrib import messages
 
 # Create your views here.
@@ -12,9 +12,14 @@ from django.contrib import messages
 def index(request):
 
   current_user = request.user
-  businesses_near_me = Business.objects.filter(id = current_user.id).all()
+  other_neighbours = Profile.objects.filter(neighbourhood_id = request.user.profile.neighbourhood.id).all()
+  businesses = Business.objects.filter(neighbourhood_id = request.user.profile.neighbourhood.id).all()
+  posts = Posts.objects.filter(neighbourhood_id= request.user.profile.neighbourhood.id).all()
   if request.method == 'POST':
     upload_neighbourhood = NeighbourhoodForm(request.POST,request.FILES)
+    
+
+
 
     if upload_neighbourhood.is_valid():
       neighbourhood = upload_neighbourhood.save(commit=False)
@@ -27,7 +32,7 @@ def index(request):
   else:
     upload_neighbourhood = NeighbourhoodForm()
 
-  return render (request , 'neighbour/index.html',{"message":message , "form":upload_neighbourhood})
+  return render (request , 'neighbour/index.html',{"message":message , "form":upload_neighbourhood ,"myneighbours":other_neighbours , "businesses":businesses ,"posts":posts})
 
 
 
@@ -36,7 +41,7 @@ def index(request):
 def profile(request):
   current_user = request.user
   user_profile = Profile.objects.filter(id = current_user.id)
-  business_near_me = Business.filter_by_neighbourhood(neighbourhood_id = current_user.neighbourhood.id)
+
 
 
   if request.method == 'POST':
@@ -58,7 +63,7 @@ def profile(request):
     
 
 
-  return render (request,'neighbour/profile.html', {"form" : create_profile ,"bisna":business_near_me})
+  return render (request,'neighbour/profile.html', {"form" : create_profile })
 
 
 def search_results(request):
@@ -73,3 +78,24 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'neighbour/search.html',{"message":message})
+
+
+def post(request):
+  current_user = request.user
+
+  if request.method == 'POST':
+    upload_post = PostForm(request.POST, request.FILES)
+
+    if upload_post.is_valid():
+      post = upload_post.save(commit=False)
+      post.profile = current_user.profile
+      post.neighbourhood = current_user.profile.neighbourhood
+      post.save()
+
+      return redirect('index')
+  else :
+      upload_post = PostForm()
+
+  return render(request ,'neighbour/post.html', {"form":upload_post})
+
+  

@@ -1,7 +1,9 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.forms import ImageField
 
 # Create your models here.
 class Neighbourhood(models.Model):
@@ -47,6 +49,7 @@ class Profile(models.Model):
   profile_email=models.EmailField(max_length = 100, blank=True)
   location = models.CharField(max_length=30 , blank=True)
   neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE, blank =True, null=True)
+
   def __str__(self):
     return f'{self.user.username}'
 
@@ -94,7 +97,18 @@ class Business(models.Model):
         business= cls.objects.filter(business_name__icontains=search_term)
         return business
 
-  
+class Posts(models.Model):
+   title = models.CharField(max_length=100)
+   content = models.TextField(blank=True, null=True)
+   image = models.ImageField(upload_to="profile/", blank=True, null=True)
+   profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
+   neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+   created_at = models.DateTimeField(auto_now_add=True)
+   
+   def __str__(self):
+       return f'{self.title}'
+
+
 
 
 
