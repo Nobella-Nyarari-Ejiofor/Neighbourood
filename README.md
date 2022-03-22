@@ -105,7 +105,7 @@ requirements from
 
 * Figma-which was used to design the prototype of the UI.
 
-* Python/Flask - Which was used to build the web-applications and interactivity
+* Python/Django - Which was used to build the web-applications and interactivity
 
 * Postgresql - For the database
 
