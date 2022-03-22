@@ -66,12 +66,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'neighbourhood.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 MODE=config("MODE", default="dev")
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-@(acdyix*&z@7cy$4&c9cfk#lccoftuaa%_+ydz6wwz81vt5lg'
 
 DEBUG = config('DEBUG', default=False, cast=bool)
