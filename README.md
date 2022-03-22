@@ -1,11 +1,6 @@
 # Neighbourood
 An application that connects neighbours together . Individuals can post in their neighbourhood , see businesses in their neighbourhood  and remain at per with information in their neighbourhood.
 
-# Awwards
-An application where users can post their projects and view other projects .
-# AwardsArena
-This is an Instagram clone app where a user can post a picture and it's details and  view posts made by others .
-
 ## A Description of the WebApplication.
 
 ## Table of Content
@@ -27,11 +22,11 @@ This is an Instagram clone app where a user can post a picture and it's details 
 
 <p>
 
-* A user can check projects from other users.
-* A user can check their projects on their profile.
-* As user can search on different projects.
-* A user can check API endpoints on the pther profile and projects.
-* A user can rate other projects.
+* A user can check posts from other neighbours.
+* A user can add their profiles.
+* As user can search for different businesses.
+* A user can add a business and a neighbourhood name .
+* A user can post a post that will be viewed by their neighbours.
 
 </p>
 
@@ -40,15 +35,15 @@ This is an Instagram clone app where a user can post a picture and it's details 
 
 * Open Terminal `ctrl+Alt+T`
 
-* Git clone https://github.com/Nobella-Nyarari-Ejiofor/Awwards
+* Git clone https://github.com/Nobella-Nyarari-Ejiofor/Neighbourhood
 
 or
 
-* Git fork - Enter into your own repository and search-https://github.com/Nobella-Nyarari-Ejiofor/Awwards then click on fork to add
+* Git fork - Enter into your own repository and search-https://github.com/Nobella-Nyarari-Ejiofor/Neighbourhood then click on fork to add
 it on your own repository.
 
  Navigate into the cloned project. 
-`cd albumarena`
+`cd neighbourhood`
 
 
 * Create and activate the vitual Environment and install the from requirements.txt
@@ -122,7 +117,7 @@ requirements from
 * W3schools
 * stackOverFlow
 
-[Go Back to the top](#awardsarena)
+[Go Back to the top](#Neighbourhood)
 
 ## Licence
 
@@ -161,6 +156,6 @@ Github - [NOBELLA EJIOFOR](https://github.com/Nobella-Nyarari-Ejiofor)
 
 ## Live Link
 
-LiveLink- [Gh-pages](https://trophytower.herokuapp.com/)
+LiveLink- [Gh-pages](https://neighbourcorner.herokuapp.com/)
 
 [Go Back to the top](#awardsarena)
