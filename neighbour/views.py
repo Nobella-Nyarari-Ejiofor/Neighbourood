@@ -16,6 +16,7 @@ def index(request):
   other_neighbours = Profile.objects.filter(neighbourhood_id = request.user.profile.neighbourhood.id).all()
   businesses = Business.objects.filter(neighbourhood_id = request.user.profile.neighbourhood.id).all()
   posts = Posts.objects.filter(neighbourhood_id= request.user.profile.neighbourhood.id).all().order_by('-id')
+  
  
 
   return render (request , 'neighbour/index.html',{"message":message , "form":upload_neighbourhood ,"myneighbours":other_neighbours, "businesses":businesses ,"posts":posts})
@@ -122,3 +123,9 @@ def add_business(request):
     upload_business = BusinessForm()
 
   return render (request,'neighbour/add-business.html', {"form" : upload_business })
+
+def redirect_view(request):
+  response = redirect('accounts/login/')
+  return response
+
+    

@@ -14,23 +14,31 @@ from pathlib import Path
 import os
 import django_heroku
 import dj_database_url
-from decouple import config,Csv
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 # Application definition
 
 INSTALLED_APPS = [
+    # 'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_registration',
     'neighbour',
-    'bootstrap4'
+    'django_pdb',
+    'django_bootstrap5',
+   
+   
+
 ]
 
 MIDDLEWARE = [
@@ -49,7 +57,9 @@ ROOT_URLCONF = 'neighbourhood.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(SETTINGS_PATH,'templates'),
+                 os.path.join(BASE_DIR, 'neighbour', 'templates', 'neighbour'),
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,24 +72,30 @@ TEMPLATES = [
         },
     },
 ]
-
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
+)
+# TEMPLATE_DIRS = (
+#     os.path.join(SETTINGS_PATH, 'templates'),
+# )
 WSGI_APPLICATION = 'neighbourhood.wsgi.application'
 
 
-MODE=config("MODE", default="dev")
+# MODE=dev
 
-SECRET_KEY = 'django-insecure-@(acdyix*&z@7cy$4&c9cfk#lccoftuaa%_+ydz6wwz81vt5lg'
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY='django-insecure'
+DEBUG = True
 # development
-if config('MODE')=="dev":
-   DATABASES = {
+# if config('MODE')=="dev":
+DATABASES = {
        'default': {
-           'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': config('DB_NAME'),
-           'USER': config('DB_USER'),
-           'PASSWORD': config('DB_PASSWORD'),
-        #    'HOST': config('DB_HOST'),
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'new_boma1',
+           'USER': 'postgres1',
+           'PASSWORD': 'mypassword1',
+           'HOST' :'localhost',
            'PORT': '',
        }
        
@@ -92,10 +108,10 @@ if config('MODE')=="dev":
 #        )
 #    }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['*']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -130,7 +146,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS= [
     os.path.join(BASE_DIR, 'static')
@@ -140,7 +159,7 @@ STATICFILES_DIRS= [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL='profile' 
+LOGIN_REDIRECT_URL='/profile' 
 LOGOUT_REDIRECT_URL='/accounts/login/'
 
 
@@ -149,6 +168,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
+template_name = "django_registration/login.html"
 
 
 django_heroku.settings(locals())

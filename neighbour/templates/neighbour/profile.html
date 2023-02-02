@@ -1,14 +1,22 @@
 {%extends 'neighbour/base.html'%}
-{% load bootstrap4 %}
+{% load django_bootstrap5%}
 
-{% block content%}
+
+{% block content %}
+
 {% if user.profile.name %}
   <h1 class = "text-center pt-5 mt-5"> My Profile</h1>
   <div class="container  d-flex justify-content-center align-items-center">
     <div class="card">
-        <div class="upper"> <img src="https://i.imgur.com/Qtrsrk5.jpg" class="img-fluid"> </div>
+        {% if user.profile.photo%}
         <div class="user text-center">
-            <div class="profile"> <img src="{{user.profile.photo.url}}" class="rounded-circle" width="80"> </div>
+          <div class="profile"> <img src="{{user.profile.photo.url}}" class="rounded-circle" width="80"> </div>
+        </div>
+        {% else %}
+        <div class="upper"> <img src="https://i.imgur.com/Qtrsrk5.jpg" class="img-fluid"> </div>
+        {% endif %}
+        <div class="user text-center">
+          <div class="profile"> <img src="" class="rounded-circle" width="80"> </div>
         </div>
         <div class="mt-5 text-center">
             <h4 class="mb-0">{{user.profile.user.username}}</h4> <span class="text-muted d-block mb-2">{{profile.name}}</span>
@@ -57,7 +65,7 @@
 <h1 class= text-center> Create profile</h1>
 <div class="card m-auto" style="width:30rem">
   <div class="card-title">
-   
+    
     <form action="{% url 'profile' %}" method="POST"  enctype="multipart/form-data" >
        {% csrf_token %}
        {% bootstrap_form form  %}
@@ -66,8 +74,6 @@
     </form>
   </div>
 </div>
-
-
 
 {% endif %}
 {% endblock %}

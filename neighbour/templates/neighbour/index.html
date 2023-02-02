@@ -1,5 +1,4 @@
 {% extends 'neighbour/base.html' %}
-{% load bootstrap4 %}
 {% block content %}
 
 
@@ -20,8 +19,11 @@
        <div class="card mt-5" style="height: auto;border: black;">
         <div class="d-flex justify-content-between p-2 px-3">
         
-            <div class="d-flex flex-row align-items-center"> <img src="{{neighbour.photo.url}}" width="50" class="rounded-circle">
-          
+            {% if user.profile.neighbour.photo.url %}
+            <div class="d-flex flex-row align-items-center"> <img src="{{user.profile.neighbour.photo.url}}" width="50" class="rounded-circle">
+            {% else %}
+            <div class="d-flex flex-row align-items-center"> <img src="" width="50" class="rounded-circle">
+            {% endif %}
                 <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">{{neighbour.name}}</span> <small class="text-primary">{{neighbour.bio}}</small> </div>
                 <br>
               
@@ -43,7 +45,11 @@
                 <div class="card mt-5" style="height: auto; width: 40rem ;border: black;">
                     <div class="d-flex justify-content-between p-2 px-3">
                     
+                        {% if post.profile.photo.url %}
                         <div class="d-flex flex-row align-items-center"> <img src="{{post.profile.photo.url}}" width="50" class="rounded-circle">
+                        {% else %}
+                        <div class="d-flex flex-row align-items-center"> <img src="" width="50" class="rounded-circle">
+                        {% endif %}
                       
                             <div class="d-flex flex-column ml-2"> <span class="font-weight-bold"> {{post.profile}}</span> <small class="text-primary">{{post.created_at}}</small> </div>
                         </div>
