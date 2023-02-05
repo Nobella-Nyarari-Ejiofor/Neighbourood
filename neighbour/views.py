@@ -47,9 +47,6 @@ def profile(request):
   else:
      create_profile= ProfileForm(instance= request.user.profile)
 
-    
-
-
   return render (request,'neighbour/profile.html', {"form" : create_profile })
 
 
@@ -128,4 +125,6 @@ def redirect_view(request):
   response = redirect('accounts/login/')
   return response
 
-    
+def success_signup(request):
+  response = redirect('/success/')
+  return response
